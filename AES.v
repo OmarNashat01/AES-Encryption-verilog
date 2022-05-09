@@ -24,12 +24,14 @@ reg Addrndkeyen = 1'b0;
 
 integer i;
 
-assign out = data2;
+
 
 Sboxall sbox(.sc(Sboxen), .Indata(data), .data(data2));
 
-								 
-initial begin
+assign out = data2;
+
+always @(clk)
+begin
 ////	for (i = 0; i <  loops; i = i + 1)  
 ////	begin
 ////
@@ -37,10 +39,6 @@ initial begin
 ////	end
 //
 //	
-		Sboxen = ~Sboxen;
-		
-		#10 
-		
 		Sboxen = ~Sboxen;
 		
 //

@@ -17,19 +17,20 @@ reg key;
 //					.out(out)
 //					
 //					);
-					
-Sboxall sbox(.sc(clk), .Indata(Indata), .data(out));					
+
+Sboxall sbox(.sc(clk), .Indata(Indata), .data(out));									
 
 initial begin
-
 	
-	#10 Indata = 	128'h3243f6a8885a308d313198a2e0370734;
-	#10 Key	 = 	128'h2b7e151628aed2a6abf7158809cf4f3c;
+	clk = 0;
 	
-	#100
+	Indata = 	128'h3243f6a8885a308d313198a2e0370734;
+//	Key	 = 	128'h2b7e151628aed2a6abf7158809cf4f3c;
 	
-	$display("Input = %h, Key = %h, out = %h",
-               Indata, Key, out);
+	#10
+	
+	$display("Input = %h, out = %h",
+               Indata, out);
 	
 end
 
