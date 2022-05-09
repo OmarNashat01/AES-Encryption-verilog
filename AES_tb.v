@@ -2,23 +2,23 @@ module AES_tb();
 
 
 reg 	clk;
-reg	reset;
-reg	cs;
-reg	we;
+
 reg[127:0] Indata;
 reg[127:0] Key;
 wire[127:0] out;
+reg key;
 
-AES encreptor(
-					.clk(clk),
-					.reset(reset),
-					.cs(cs),
-					.we(we),
-					.Indata(Indata),
-					.Key(Key),
-					.out(out)
-					);
+//AES encreptor(
+//					.KeySize(key),
+//					.clk(clk),
+//
+//					.Indata(Indata),
+//					.Key128(Key),
+//					.out(out)
+//					
+//					);
 					
+Sboxall sbox(.sc(clk), .Indata(Indata), .data(out));					
 
 initial begin
 
@@ -33,5 +33,8 @@ initial begin
 	
 end
 
+always begin
+	#10 clk = ~clk;
+end
 
 endmodule
