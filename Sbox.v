@@ -1,9 +1,9 @@
-module Sbox(input sc, input[7:0] byte, output reg[7:0] Sbyte);
+module Sbox(input[7:0] byte, output reg[7:0] Sbyte);
 
 
 // sc ==> start conversion
 // start conversion once sc is changed
-always @(sc)
+always @(byte)
 begin
     case (byte)
 		8'h00: Sbyte= 8'h63;
