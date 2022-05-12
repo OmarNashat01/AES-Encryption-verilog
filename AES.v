@@ -1,68 +1,120 @@
 module AES(
-				input wire	KeySize,
-				
-				input wire[127:0] Indata,
-				input wire[127:0] Key128,
-				input wire[191:0] Key192,
-				input wire[255:0] Key256,
-
-				output wire[127:0] out128,
-				output wire[127:0] out192,
-				output wire[127:0] out256
-				
+				input reset,
+				input clk,
+				input we,
+				input [7:0] Indata,
+				output wire[127:0] out
 			);
 				
 
 				
 
-wire[127:0] data1 = Indata ^ Key128;
-wire[127:0] data2;
-wire[127:0] data3;
-wire[127:0] data4;
-wire[127:0] data5;
-wire[127:0] data6;
-wire[127:0] data7;
-wire[127:0] data8;
-wire[127:0] data9;
+reg [127:0] data;
+reg [256:0] key;
 
-wire[127:0] data10;
-wire[127:0] data11;
 
-wire[127:0] data12;
-wire[127:0] data13;
+reg [4:0] state;
+reg [4:0] state_next;
+
+
+localparam idle = 5'd0;
+localparam readData = 5'd1;
+localparam readKeySize = 5'd2;
+localparam readKeyData = 5'd3;
+localparam keyExpansion = 5'd4;
 
 
 
+reg [5:0] counter;
+reg [5:0] keybytes;
 
+wire [3:0] Nk = keybytes/4;
 
-
-
-
-assign out128 = data2;
-
-
-
-
-Round round1(.Indata(data1), .data(data2));
-Round round2(.Indata(data2), .data(data3));
-Round round3(.Indata(data3), .data(data4));
-Round round4(.Indata(data4), .data(data5));
-Round round5(.Indata(data5), .data(data6));
-Round round6(.Indata(data6), .data(data7));
-Round round7(.Indata(data7), .data(data8));
-Round round8(.Indata(data8), .data(data9));
-Round round9(.Indata(data9), .data(data10));
+always @(posedge clk, posedge reset) begin
+	if (reset)
+		state <= idle;
+	else
+		state <= state_next;
+end
 
 
 
 
-Round round10(.Indata(data10), .data(data11));
-Round round11(.Indata(data11), .data(data12));
+always @(state, counter, we) begin
+
+	case (state)
+
+		idle:
+			if (we) begin
+				state_next <= readData;
+				counter <= 0;
+			end
+			else
+				state_next <= idle;
+
+		readData: begin
+			data <= {Indata, data[127:8]};
+			counter <= counter + 1; 
+			
+			if (counter < 16)
+				state_next <= readData;
+			else begin
+				state_next <= readKeySize;
+			end
+		end
+
+		readKeySize: begin
+			keybytes <= data[5:0];
+			state_next <= readKeyData;
+			counter <= 0;
+		end
+
+		readKeyData: begin
+			key <= {Indata, key[255:8]};
+			counter <= counter + 1;
+
+			if (counter < keybytes)
+				state_next <= readKeyData;
+			else
+				state_next <= keyExpansion;
+		end
+
+
+
+		
+	endcase
+end
+
+
+
+
+
+assign out = data;
+
+
 
 
 
 
 
 endmodule
+
+/* [7:0], */
+/* [15:8] */
+/* [23:16] */
+/* [31:24] */
+/* [39:32] */
+/* [47:40] */
+/* [55:48] */
+/* [63:56] */
+/* [71:64] */
+/* [79:72] */
+/* [87:80] */
+/* [95:88] */
+/* [103:96] */
+/* [111:104] */
+/* [119:112] */
+/* [127:120] */
+
 
 
