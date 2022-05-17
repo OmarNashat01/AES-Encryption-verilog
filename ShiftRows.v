@@ -5,7 +5,7 @@ module ShiftRows(
 					);
 						
 
-always @(sc)
+always @(Indata)
 begin
 
 	data[127:120] <= Indata[127:120];  

@@ -22,19 +22,18 @@ wire [127:0] mixColumns;
 wire [127:0] tmpwire;
 
 
-assign tmpwire = tmp;
 
 
-assign keyExpansion = state;
-assign subBytes = state;
-assign shiftRows = state;
-assign mixColumns = state;
+//assign keyExpansion = state;
+//assign subBytes = state;
+//assign shiftRows = state;
+//assign mixColumns = state;
 
 
 
 
-Sboxall sboxall(.sc(subBytesen), .Indata(subBytes), .data(tmpwire));
-ShiftRows shiftrowsall(.sc(shiftRowsen), .Indata(shiftRows), .data(tmpwire));
+Sboxall sboxall(.sc(subBytesen), .Indata(subBytes), .data(subBytes));
+ShiftRows shiftrowsall(.sc(shiftRowsen), .Indata(shiftRows), .data(shiftRows));
 
 
 
@@ -48,19 +47,21 @@ reg [4:0] state_next;
 
 // States
 localparam idle = 5'd0;
-localparam readData = 5'd1;
-localparam readKeySize = 5'd2;
-localparam readKeyData = 5'd3;
-localparam readReqProcess = 5'd4;
+localparam readData0 = 5'd1;
+localparam readData1 = 5'd2;
+localparam readKeySize = 5'd3;
+localparam readKeyData0 = 5'd4;
+localparam readKeyData1 = 5'd5;
+localparam readReqProcess = 5'd6;
 
-localparam startEncryption = 5'd5;
-localparam SubBytesOp = 5'd6;
-localparam ShiftRowsOp = 5'd7;
-localparam MixColumnsOp = 5'd8;
-localparam KeyExpansionOp = 5'd9;
+localparam startEncryption = 5'd7;
+localparam SubBytesOp = 5'd8;
+localparam ShiftRowsOp = 5'd9;
+localparam MixColumnsOp = 5'd10;
+localparam KeyExpansionOp = 5'd11;
 	
 
-localparam startDecryption = 5'd10;
+localparam startDecryption = 5'd12;
 
 // TODO: Add required states.
 
@@ -94,8 +95,9 @@ always @(posedge clk, posedge reset) begin
 		en = 0;
 	end
 	else begin
+//		en = ~en;
 		state_current <= state_next;
-		en = ~en;
+
 	end
 end
 
@@ -103,7 +105,7 @@ end
 
 
 // States flow 
-always @(state_current, we, en) begin
+always @(state_current, we) begin
 
 	case (state_current)
 
@@ -111,7 +113,7 @@ always @(state_current, we, en) begin
 		// to be entered to the system.
 		idle:
 			if (we) begin
-				state_next <= readData;
+				state_next <= readData0;
 				counter <= 0;
 				state <= 128'h99_99_99_99_99_99_99_99_99_99_99_99_99_99_99_99_99;
 				key <= 256'h0;
@@ -121,12 +123,22 @@ always @(state_current, we, en) begin
 
 		/// ###################### Start of input stage ##################
 		// start reading data serially byte by byte into a shift register.
-		readData: begin
+		readData0: begin
 			state <= {state[119:0], Indata};
 			counter <= counter + 1;
 			
-			if (counter < 14)
-				state_next <= readData;
+			if (counter < 15)
+				state_next <= readData1;
+			else
+				state_next <= readKeySize;
+		end
+		
+		readData1: begin
+			state <= {state[119:0], Indata};
+			counter <= counter + 1;
+			
+			if (counter < 15)
+				state_next <= readData0;
 			else
 				state_next <= readKeySize;
 		end
@@ -134,17 +146,34 @@ always @(state_current, we, en) begin
 		// take from user the key size in bytes.
 		readKeySize: begin
 			keybytes <= Indata[6:0];
-			state_next <= readKeyData;
+			state_next <= readKeyData0;
 			counter <= 0;
 		end
 
 		// start entering key into a shift register.
-		readKeyData: begin
+		readKeyData0: begin
 			key <= {key[247:0], Indata};
 			counter <= counter + 1;
 
 			if (counter < keybytes)
-				state_next <= readKeyData;
+				state_next <= readKeyData1;
+			else begin
+			// prob wrong
+				if (keybytes == 16)
+					key <= {key[127:0], 128'd0};
+				if (keybytes == 24)
+					key <= {key[255:64], 64'd0};
+				state_next <= readReqProcess;
+				rounds <= 0;
+			end
+		end
+
+		readKeyData1: begin
+			key <= {key[247:0], Indata};
+			counter <= counter + 1;
+
+			if (counter < keybytes)
+				state_next <= readKeyData0;
 			else begin
 			// prob wrong
 				if (keybytes == 16)
@@ -155,7 +184,6 @@ always @(state_current, we, en) begin
 				rounds <= 0;
 			end
 		end
-
 		// Read required process 1 for encryption, 0 for decryption.
 		readReqProcess: begin
 			if (Indata[0])
@@ -180,8 +208,8 @@ always @(state_current, we, en) begin
 		end
 
 		SubBytesOp: begin
-			subBytesen = ~subBytesen;
-			state <= tmp;
+//			subBytesen = ~subBytesen;
+			state <= subBytes;
 
 			state_next <= ShiftRowsOp;
 
@@ -189,7 +217,7 @@ always @(state_current, we, en) begin
 
 		ShiftRowsOp: begin
 			shiftRowsen = ~shiftRowsen;
-			state <= tmp;
+			state <= shiftRows;
 
 			state_next <= MixColumnsOp;
 		end

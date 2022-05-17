@@ -3,7 +3,7 @@ module Sbox(input sc, input[7:0] Inbyte, output reg[7:0] Sbyte);
 
 // sc ==> start conversion
 // start conversion once sc is changed
-always @(sc)
+always @(Inbyte)
 begin
     case (Inbyte)
 		8'h00: Sbyte= 8'h63;
