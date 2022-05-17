@@ -1,5 +1,4 @@
 module ShiftRows(
-					input sc,
 					input wire[127:0] Indata,
 					output reg[127:0] data
 					);

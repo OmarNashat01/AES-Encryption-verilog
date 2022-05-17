@@ -1,8 +1,6 @@
-module Sbox(input sc, input[7:0] Inbyte, output reg[7:0] Sbyte);
+module Sbox(input[7:0] Inbyte, output reg[7:0] Sbyte);
 
 
-// sc ==> start conversion
-// start conversion once sc is changed
 always @(Inbyte)
 begin
     case (Inbyte)
@@ -261,7 +259,7 @@ begin
 		8'hfc: Sbyte= 8'hb0;
 		8'hfd: Sbyte= 8'h54;
 		8'hfe: Sbyte= 8'hbb;
-		8'hff: Sbyte= 8'h16;
+		default: Sbyte= 8'h16;
 	endcase
 end
 

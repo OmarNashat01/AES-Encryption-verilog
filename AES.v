@@ -8,12 +8,8 @@ module AES(
 				
 
 reg [127:0] state;
-reg [127:0] tmp;
 
-reg keyExpansionen;
-reg subBytesen;
-reg shiftRowsen;
-reg mixColumnsen;
+
 
 wire [127:0] keyExpansion;
 wire [127:0] subBytes;
@@ -32,8 +28,8 @@ wire [127:0] tmpwire;
 
 
 
-Sboxall sboxall(.sc(subBytesen), .Indata(subBytes), .data(subBytes));
-ShiftRows shiftrowsall(.sc(shiftRowsen), .Indata(shiftRows), .data(shiftRows));
+Sboxall sboxall(.Indata(state), .data(subBytes));
+ShiftRows shiftrowsall(.Indata(state), .data(shiftRows));
 
 
 
@@ -77,30 +73,40 @@ reg [6:0] keybytes;
 wire [3:0] Nk = keybytes/4;
 
 
-reg en;
 
 
-// Initialize our states
-initial begin
-
-	state_current <= idle;
-	state_next <= idle;
-
-end
 
 // Update our current state to next state or idle incase of reset
-always @(posedge clk, posedge reset) begin
-	if (reset) begin
+always @(posedge clk, posedge reset)
+	if (reset)
 		state_current <= idle;
-		en = 0;
-	end
-	else begin
-//		en = ~en;
+	else
 		state_current <= state_next;
 
-	end
-end
 
+always @(posedge clk, posedge reset)
+	if (reset)
+		counter = 0;
+	else begin
+		case(state_current)
+			readData0:
+				counter = counter + 1;
+			
+			readData1:
+				counter = counter + 1;
+		
+			readKeySize:
+				counter = 0;
+			
+			readKeyData0:
+				counter = counter + 1;
+				
+			readKeyData1:
+				counter = counter + 1;
+		endcase
+	end
+
+		
 
 
 
@@ -114,7 +120,6 @@ always @(state_current, we) begin
 		idle:
 			if (we) begin
 				state_next <= readData0;
-				counter <= 0;
 				state <= 128'h99_99_99_99_99_99_99_99_99_99_99_99_99_99_99_99_99;
 				key <= 256'h0;
 			end
@@ -125,7 +130,6 @@ always @(state_current, we) begin
 		// start reading data serially byte by byte into a shift register.
 		readData0: begin
 			state <= {state[119:0], Indata};
-			counter <= counter + 1;
 			
 			if (counter < 15)
 				state_next <= readData1;
@@ -135,7 +139,6 @@ always @(state_current, we) begin
 		
 		readData1: begin
 			state <= {state[119:0], Indata};
-			counter <= counter + 1;
 			
 			if (counter < 15)
 				state_next <= readData0;
@@ -147,13 +150,11 @@ always @(state_current, we) begin
 		readKeySize: begin
 			keybytes <= Indata[6:0];
 			state_next <= readKeyData0;
-			counter <= 0;
 		end
 
 		// start entering key into a shift register.
 		readKeyData0: begin
 			key <= {key[247:0], Indata};
-			counter <= counter + 1;
 
 			if (counter < keybytes)
 				state_next <= readKeyData1;
@@ -170,7 +171,6 @@ always @(state_current, we) begin
 
 		readKeyData1: begin
 			key <= {key[247:0], Indata};
-			counter <= counter + 1;
 
 			if (counter < keybytes)
 				state_next <= readKeyData0;
@@ -197,18 +197,12 @@ always @(state_current, we) begin
 		/// ###################### Start of encryption ##################
 		startEncryption: begin
 			// TODO: start the encryption process with key expansion.
-			state <= state ^ key[127:0];
-
-			subBytesen = 0;
-			shiftRowsen = 0;
-			mixColumnsen = 0;
-			keyExpansionen = 0;
+			state <= state ^ key[255:128];
 
 			state_next <= SubBytesOp;
 		end
 
 		SubBytesOp: begin
-//			subBytesen = ~subBytesen;
 			state <= subBytes;
 
 			state_next <= ShiftRowsOp;
@@ -216,7 +210,6 @@ always @(state_current, we) begin
 		end
 
 		ShiftRowsOp: begin
-			shiftRowsen = ~shiftRowsen;
 			state <= shiftRows;
 
 			state_next <= MixColumnsOp;
