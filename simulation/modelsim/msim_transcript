@@ -1,0 +1,183 @@
+# Reading pref.tcl
+# do AES_run_msim_rtl_verilog.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap work rtl_work 
+# Copying C:/intelFPGA_lite/20.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vlog -vlog01compat -work work +incdir+C:/Users/sicom/Desktop/University/Logic-2/Project {C:/Users/sicom/Desktop/University/Logic-2/Project/AES.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 23:48:38 on May 17,2022
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/sicom/Desktop/University/Logic-2/Project" C:/Users/sicom/Desktop/University/Logic-2/Project/AES.v 
+# -- Compiling module AES
+# ** Warning: C:/Users/sicom/Desktop/University/Logic-2/Project/AES.v(119): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+# 
+# Top level modules:
+# 	AES
+# End time: 23:48:38 on May 17,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 1
+# vlog -vlog01compat -work work +incdir+C:/Users/sicom/Desktop/University/Logic-2/Project {C:/Users/sicom/Desktop/University/Logic-2/Project/Sbox.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 23:48:38 on May 17,2022
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/sicom/Desktop/University/Logic-2/Project" C:/Users/sicom/Desktop/University/Logic-2/Project/Sbox.v 
+# -- Compiling module Sbox
+# 
+# Top level modules:
+# 	Sbox
+# End time: 23:48:38 on May 17,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/Users/sicom/Desktop/University/Logic-2/Project {C:/Users/sicom/Desktop/University/Logic-2/Project/Sboxall.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 23:48:38 on May 17,2022
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/sicom/Desktop/University/Logic-2/Project" C:/Users/sicom/Desktop/University/Logic-2/Project/Sboxall.v 
+# -- Compiling module Sboxall
+# 
+# Top level modules:
+# 	Sboxall
+# End time: 23:48:38 on May 17,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/Users/sicom/Desktop/University/Logic-2/Project {C:/Users/sicom/Desktop/University/Logic-2/Project/ShiftRows.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 23:48:38 on May 17,2022
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/sicom/Desktop/University/Logic-2/Project" C:/Users/sicom/Desktop/University/Logic-2/Project/ShiftRows.v 
+# -- Compiling module ShiftRows
+# 
+# Top level modules:
+# 	ShiftRows
+# End time: 23:48:38 on May 17,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/Users/sicom/Desktop/University/Logic-2/Project {C:/Users/sicom/Desktop/University/Logic-2/Project/KeyExpansion.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 23:48:38 on May 17,2022
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/sicom/Desktop/University/Logic-2/Project" C:/Users/sicom/Desktop/University/Logic-2/Project/KeyExpansion.v 
+# -- Compiling module keyExpansion
+# ** Warning: C:/Users/sicom/Desktop/University/Logic-2/Project/KeyExpansion.v(41): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+# 
+# Top level modules:
+# 	keyExpansion
+# End time: 23:48:38 on May 17,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 1
+# vlog -vlog01compat -work work +incdir+C:/Users/sicom/Desktop/University/Logic-2/Project {C:/Users/sicom/Desktop/University/Logic-2/Project/mixColumns.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 23:48:38 on May 17,2022
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/sicom/Desktop/University/Logic-2/Project" C:/Users/sicom/Desktop/University/Logic-2/Project/mixColumns.v 
+# -- Compiling module mixColumns
+# 
+# Top level modules:
+# 	mixColumns
+# End time: 23:48:38 on May 17,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vlog -vlog01compat -work work +incdir+C:/Users/sicom/Desktop/University/Logic-2/Project {C:/Users/sicom/Desktop/University/Logic-2/Project/AES_tb.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 23:48:38 on May 17,2022
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/sicom/Desktop/University/Logic-2/Project" C:/Users/sicom/Desktop/University/Logic-2/Project/AES_tb.v 
+# -- Compiling module AES_tb
+# 
+# Top level modules:
+# 	AES_tb
+# End time: 23:48:38 on May 17,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cyclonev_ver -L cyclonev_hssi_ver -L cyclonev_pcie_hip_ver -L rtl_work -L work -voptargs="+acc"  AES_tb
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cyclonev_ver -L cyclonev_hssi_ver -L cyclonev_pcie_hip_ver -L rtl_work -L work -voptargs=""+acc"" AES_tb 
+# Start time: 23:48:39 on May 17,2022
+# Loading work.AES_tb
+# Loading work.AES
+# Loading work.Sboxall
+# Loading work.Sbox
+# Loading work.ShiftRows
+# Loading work.mixColumns
+# Loading work.keyExpansion
+# 
+# add wave *
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: sicom  Hostname: DESKTOP-B2CVJ04  ProcessID: 32908
+#           Attempting to use alternate WLF file "./wlftzhaxnv".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftzhaxnv
+# view structure
+# .main_pane.structure.interior.cs.body.struct
+# view signals
+# .main_pane.objects.interior.cs.body.tree
+# run -all
+# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+# 99999999999999999999999999999999
+# 99999999999999999999999999999900
+# 99999999999999999999999999990011
+# 99999999999999999999999999001122
+# 99999999999999999999999900112233
+# 99999999999999999999990011223344
+# 99999999999999999999001122334455
+# 99999999999999999900112233445566
+# 99999999999999990011223344556677
+# 99999999999999001122334455667788
+# 99999999999900112233445566778899
+# 999999999900112233445566778899aa
+# 9999999900112233445566778899aabb
+# 99999900112233445566778899aabbcc
+# 999900112233445566778899aabbccdd
+# 9900112233445566778899aabbccddee
+# 00112233445566778899aabbccddeeff
+# 638293c31bfc33f5c4eeacea4bc12816
+# 63fcac161bee28c3c4c193f54b8233ea
+# 6379e6d9f467fb76ad063cf4d2eb8aa3
+# 361a85baa1049815f8655f978788e9c0
+# 05a297f432f24659414dcf8817c41eba
+# 05f2cfba324d1ef441c4975917a24688
+# 720aa75d597e44f61b295b221d0abad6
+# ea923fc29485bf0a83b1c3bdd0f1412a
+# 874f752522970867ecc82e7a70a183e5
+# 87972ee522c88325eca17567704f087a
+# 7c2578faa1129867294d0e35438ca123
+# ddb250d8cd7e4bb9ddb945747a83119e
+# c1375361bdf3b356c1566e92daec820b
+# ** Note: $finish    : C:/Users/sicom/Desktop/University/Logic-2/Project/AES_tb.v(82)
+#    Time: 570 ps  Iteration: 0  Instance: /AES_tb
+# 1
+# Break in Module AES_tb at C:/Users/sicom/Desktop/University/Logic-2/Project/AES_tb.v line 82
+restart 
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+run -all
+# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+# 99999999999999999999999999999999
+# 99999999999999999999999999999900
+# 99999999999999999999999999990011
+# 99999999999999999999999999001122
+# 99999999999999999999999900112233
+# 99999999999999999999990011223344
+# 99999999999999999999001122334455
+# 99999999999999999900112233445566
+# 99999999999999990011223344556677
+# 99999999999999001122334455667788
+# 99999999999900112233445566778899
+# 999999999900112233445566778899aa
+# 9999999900112233445566778899aabb
+# 99999900112233445566778899aabbcc
+# 999900112233445566778899aabbccdd
+# 9900112233445566778899aabbccddee
+# 00112233445566778899aabbccddeeff
+# 638293c31bfc33f5c4eeacea4bc12816
+# 63fcac161bee28c3c4c193f54b8233ea
+# 6379e6d9f467fb76ad063cf4d2eb8aa3
+# 361a85baa1049815f8655f978788e9c0
+# 05a297f432f24659414dcf8817c41eba
+# 05f2cfba324d1ef441c4975917a24688
+# 720aa75d597e44f61b295b221d0abad6
+# ea923fc29485bf0a83b1c3bdd0f1412a
+# 874f752522970867ecc82e7a70a183e5
+# 87972ee522c88325eca17567704f087a
+# 7c2578faa1129867294d0e35438ca123
+# ddb250d8cd7e4bb9ddb945747a83119e
+# c1375361bdf3b356c1566e92daec820b
+# ** Note: $finish    : C:/Users/sicom/Desktop/University/Logic-2/Project/AES_tb.v(82)
+#    Time: 570 ps  Iteration: 0  Instance: /AES_tb
+# 1
+# Break in Module AES_tb at C:/Users/sicom/Desktop/University/Logic-2/Project/AES_tb.v line 82
+# End time: 23:50:35 on May 17,2022, Elapsed time: 0:01:56
+# Errors: 0, Warnings: 0

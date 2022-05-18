@@ -20,16 +20,6 @@ wire [127:0] tmpwire;
 
 
 
-//assign keyExpansion = state;
-//assign subBytes = state;
-//assign shiftRows = state;
-//assign mixColumns = state;
-
-
-
-
-Sboxall sboxall(.Indata(state), .data(subBytes));
-ShiftRows shiftrowsall(.Indata(state), .data(shiftRows));
 
 
 
@@ -74,6 +64,10 @@ wire [3:0] Nk = keybytes/4;
 
 
 
+Sboxall sboxall(.Indata(state), .data(subBytes));
+ShiftRows shiftrowsall(.Indata(state), .data(shiftRows));
+mixColumns mixcolumnsall(.a(state), .mcl(mixColumns));
+keyExpansion keyExpansionall(.rc(counter[3:0]), .key(key[255:128]), .keyout(keyExpansion));
 
 
 // Update our current state to next state or idle incase of reset
@@ -94,15 +88,17 @@ always @(posedge clk, posedge reset)
 			
 			readData1:
 				counter = counter + 1;
-		
-			readKeySize:
-				counter = 0;
 			
 			readKeyData0:
 				counter = counter + 1;
 				
 			readKeyData1:
 				counter = counter + 1;
+				
+			startEncryption:
+				counter = counter + 1;
+			default: 
+				counter = 0;
 		endcase
 	end
 
@@ -159,7 +155,6 @@ always @(state_current, we) begin
 			if (counter < keybytes)
 				state_next <= readKeyData1;
 			else begin
-			// prob wrong
 				if (keybytes == 16)
 					key <= {key[127:0], 128'd0};
 				if (keybytes == 24)
@@ -216,8 +211,15 @@ always @(state_current, we) begin
 		end
 		
 		MixColumnsOp: begin
-			state_next <= MixColumnsOp;
+			state <= mixColumns;
+			state_next <= KeyExpansionOp;
 		end
+		
+		KeyExpansionOp: begin
+			key[255:128] <= keyExpansion;
+			state_next <= startEncryption;
+		end
+		
 
 
 		/// ###################### End of encryption ##################

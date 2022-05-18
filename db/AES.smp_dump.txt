@@ -1,0 +1,15 @@
+
+State Machine - |AES|state_current
+Name state_current.startDecryption state_current.MixColumnsOp state_current.ShiftRowsOp state_current.SubBytesOp state_current.startEncryption state_current.readReqProcess state_current.readKeyData1 state_current.readKeyData0 state_current.readKeySize state_current.readData1 state_current.readData0 state_current.idle 
+state_current.idle 0 0 0 0 0 0 0 0 0 0 0 0 
+state_current.readData0 0 0 0 0 0 0 0 0 0 0 1 1 
+state_current.readData1 0 0 0 0 0 0 0 0 0 1 0 1 
+state_current.readKeySize 0 0 0 0 0 0 0 0 1 0 0 1 
+state_current.readKeyData0 0 0 0 0 0 0 0 1 0 0 0 1 
+state_current.readKeyData1 0 0 0 0 0 0 1 0 0 0 0 1 
+state_current.readReqProcess 0 0 0 0 0 1 0 0 0 0 0 1 
+state_current.startEncryption 0 0 0 0 1 0 0 0 0 0 0 1 
+state_current.SubBytesOp 0 0 0 1 0 0 0 0 0 0 0 1 
+state_current.ShiftRowsOp 0 0 1 0 0 0 0 0 0 0 0 1 
+state_current.MixColumnsOp 0 1 0 0 0 0 0 0 0 0 0 1 
+state_current.startDecryption 1 0 0 0 0 0 0 0 0 0 0 1 

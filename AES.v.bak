@@ -1,0 +1,33 @@
+module AES(
+				input wire	clk,
+				input wire	reset,
+				input wire	cs,
+				input wire	we,
+				
+				input wire[127:0] Indata,
+				input wire[127:0] Key,
+
+				output wire[127:0] output
+			);
+				
+
+wire[7:0] a0 = Indata[7:0];
+wire[7:0] a1 = Indata[15:8];
+wire[7:0] a2 = Indata[23:16];
+wire[7:0] a3 = Indata[31:24];
+wire[7:0] a4 = Indata[39:32];
+wire[7:0] a5 = Indata[47:40];
+wire[7:0] a6 = Indata[55:48];
+wire[7:0] a7 = Indata[63:56];
+wire[7:0] a8 = Indata[71:64];
+wire[7:0] a9 = Indata[79:72];
+wire[7:0] a10 = Indata[87:80];
+wire[7:0] a11 = Indata[95:88];
+wire[7:0] a12 = Indata[103:96];
+wire[7:0] a13 = Indata[111:104];
+wire[7:0] a14 = Indata[119:112];
+wire[7:0] a15 = Indata[127:120];
+
+
+
+
