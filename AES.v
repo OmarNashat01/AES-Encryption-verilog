@@ -66,8 +66,8 @@ wire [3:0] Nk = keybytes/4;
 
 Sboxall sboxall(.Indata(state), .data(subBytes));
 ShiftRows shiftrowsall(.Indata(state), .data(shiftRows));
-mixColumns mixcolumnsall(.a(state), .mcl(mixColumns));
-keyExpansion keyExpansionall(.rc(counter[3:0]), .key(key[255:128]), .keyout(keyExpansion));
+/* mixColumns mixcolumnsall(.a(state), .mcl(mixColumns)); */
+/* keyExpansion keyExpansionall(.rc(counter[3:0]), .key(key[255:128]), .keyout(keyExpansion)); */
 
 
 // Update our current state to next state or idle incase of reset
@@ -207,18 +207,18 @@ always @(state_current, we) begin
 		ShiftRowsOp: begin
 			state <= shiftRows;
 
-			state_next <= MixColumnsOp;
+			state_next <= ShiftRowsOp;
 		end
 		
-		MixColumnsOp: begin
-			state <= mixColumns;
-			state_next <= KeyExpansionOp;
-		end
+		/* MixColumnsOp: begin */
+		/* 	state <= mixColumns; */
+		/* 	state_next <= KeyExpansionOp; */
+		/* end */
 		
-		KeyExpansionOp: begin
-			key[255:128] <= keyExpansion;
-			state_next <= startEncryption;
-		end
+		/* KeyExpansionOp: begin */
+		/* 	key[255:128] <= keyExpansion; */
+		/* 	state_next <= startEncryption; */
+		/* end */
 		
 
 
