@@ -1,3 +1,5 @@
+//THE CODE ASSUMES THAT THE INPUT IS COLUMN MAJOR
+
 module ShiftRows( 
 						input wire[127:0] Indata,
 						output[127:0] data
@@ -26,3 +28,8 @@ assign data[7:0] = Indata[39:32];
 
 
 endmodule
+
+
+/*
+d4e0b81e27bfb44111985d52aef1e530
+*/

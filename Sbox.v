@@ -3,6 +3,8 @@ module Sbox(input[7:0] byte, output reg[7:0] Sbyte);
 
 // sc ==> start conversion
 // start conversion once sc is changed
+
+
 always @(byte)
 begin
     case (byte)
@@ -267,3 +269,4 @@ end
 
 endmodule
  
+//19a09ae93df4c6f8e3e28d48be2b2a08 

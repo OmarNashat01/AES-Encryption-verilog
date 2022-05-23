@@ -1,4 +1,4 @@
-module Sbox(input[7:0] byte, output reg[7:0] Sbyte);
+module InvSbox(input[7:0] byte, output reg[7:0] Sbyte);
 
 
 // sc ==> start conversion
